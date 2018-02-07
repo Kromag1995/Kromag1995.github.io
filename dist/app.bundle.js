@@ -954,6 +954,10 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var popis = [];
+var popis2 = [];
+var popis3 = [];
+
 var settings = {
   "async": false,
   "crossDomain": true,
@@ -974,39 +978,126 @@ console.log(respuesta);
 
 var i = 0;
 
+var popl = Math.floor(respuesta.length / 5);
+var dif = popl * 5 - respuesta.length;
 var base_url = 'https://image.tmdb.org/t/p/w500/';
 
 function Peli(prop) {
   var pop = [];
   for (i = 0; i < respuesta.length; i++) {
-    var resumen = respuesta[i].overview;
+    var resumen = [respuesta[i].overview, respuesta[i].release_date];
     pop.push(_react2.default.createElement(
       'div',
-      null,
+      { className: "movie", key: i },
       _react2.default.createElement(
         'h1',
         null,
         respuesta[i].original_title
       ),
-      _react2.default.createElement('img', {
-        src: base_url + respuesta[i].poster_path,
-        alt: respuesta[i].original_title
-      }),
       _react2.default.createElement(
-        'p',
-        null,
-        resumen
+        'div',
+        { className: "resumen" },
+        _react2.default.createElement('img', {
+          src: base_url + respuesta[i].poster_path,
+          alt: respuesta[i].original_title
+        }),
+        _react2.default.createElement(
+          'span',
+          null,
+          resumen
+        )
       )
     ));
   }
-  return _react2.default.createElement(
-    'div',
-    null,
-    pop
-  );
+  i = 0;
+  console.log(pop);
+  if (respuesta.length > 5) {
+    for (i = 0; i < popl; i++) {
+      for (var p = 0; p < 5; p++) {
+        popis.push(_react2.default.createElement(
+          'div',
+          null,
+          pop[p + i * 5]
+        ));
+      }
+      popis2.push(_react2.default.createElement(
+        'li',
+        { className: "slide" },
+        popis
+      ));
+      popis = [];
+    }
+    console.log(document.getElementsByClassName("slide"));
+    if (dif > 0) {
+      for (var _p = 0; _p < dif; _p++) {
+        popis.push(_react2.default.createElement(
+          'div',
+          null,
+          pop[_p + i * 5]
+        ));
+        console.log("for if");
+      }
+      popis2.push(_react2.default.createElement(
+        'li',
+        null,
+        popis[i]
+      ));
+      console.log("if");
+    }
+
+    popis3 = _react2.default.createElement(
+      'ul',
+      null,
+      popis2
+    );
+    return _react2.default.createElement(
+      'div',
+      { className: "cointainer slideshow" },
+      popis3
+    );
+  } else {
+    _react2.default.createElement(
+      'div',
+      { className: "cointainer slideshow" },
+      pop
+    );
+  };
 }
 var element = _react2.default.createElement(Peli, null);
-_reactDom2.default.render(element, document.getElementById('root'));
+
+var promesa = new Promise(function (resolve, rejet) {
+  return resolve(_reactDom2.default.render(element, document.getElementById('root')));
+});
+
+console.log(document.getElementsByClassName("slide"));
+
+var slideIndex = 1;
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("slide");
+  if (n > slides.length) {
+    slideIndex = 1;
+  }
+  if (n < 1) {
+    slideIndex = slides.length;
+  }
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slides[slideIndex - 1].style.display = "block";
+}
+
+showSlides(slideIndex);
+
+promesa.then(function () {
+  return console.log(document.getElementsByClassName("slide"));
+});
 
 /***/ }),
 /* 15 */
