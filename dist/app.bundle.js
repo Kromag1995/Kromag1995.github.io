@@ -940,6 +940,8 @@ module.exports = focusNode;
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
@@ -954,9 +956,15 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var pop = [];
 var popis = [];
 var popis2 = [];
-var popis3 = [];
 
 var settings = {
   "async": false,
@@ -978,126 +986,138 @@ console.log(respuesta);
 
 var i = 0;
 
-var popl = Math.floor(respuesta.length / 5);
-var dif = popl * 5 - respuesta.length;
 var base_url = 'https://image.tmdb.org/t/p/w500/';
 
-function Peli(prop) {
-  var pop = [];
-  for (i = 0; i < respuesta.length; i++) {
-    var resumen = [respuesta[i].overview, respuesta[i].release_date];
-    pop.push(_react2.default.createElement(
-      'div',
-      { className: "movie", key: i },
-      _react2.default.createElement(
-        'h1',
-        null,
-        respuesta[i].original_title
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: "resumen" },
-        _react2.default.createElement('img', {
-          src: base_url + respuesta[i].poster_path,
-          alt: respuesta[i].original_title
-        }),
-        _react2.default.createElement(
-          'span',
-          null,
-          resumen
-        )
-      )
-    ));
-  }
-  i = 0;
-  console.log(pop);
-  if (respuesta.length > 5) {
-    for (i = 0; i < popl; i++) {
-      for (var p = 0; p < 5; p++) {
-        popis.push(_react2.default.createElement(
-          'div',
-          null,
-          pop[p + i * 5]
-        ));
-      }
-      popis2.push(_react2.default.createElement(
-        'li',
-        { className: "slide" },
-        popis
-      ));
-      popis = [];
-    }
-    console.log(document.getElementsByClassName("slide"));
-    if (dif > 0) {
-      for (var _p = 0; _p < dif; _p++) {
-        popis.push(_react2.default.createElement(
-          'div',
-          null,
-          pop[_p + i * 5]
-        ));
-        console.log("for if");
-      }
-      popis2.push(_react2.default.createElement(
-        'li',
-        null,
-        popis[i]
-      ));
-      console.log("if");
-    }
-
-    popis3 = _react2.default.createElement(
-      'ul',
+for (i = 0; i < respuesta.length; i++) {
+  var resumen = [respuesta[i].overview, respuesta[i].release_date];
+  pop.push(_react2.default.createElement(
+    'div',
+    { className: "movie", key: i },
+    _react2.default.createElement(
+      'h1',
       null,
-      popis2
-    );
-    return _react2.default.createElement(
-      'div',
-      { className: "cointainer slideshow" },
-      popis3
-    );
-  } else {
+      respuesta[i].original_title
+    ),
     _react2.default.createElement(
       'div',
-      { className: "cointainer slideshow" },
-      pop
-    );
-  };
-}
-var element = _react2.default.createElement(Peli, null);
-
-var promesa = new Promise(function (resolve, rejet) {
-  return resolve(_reactDom2.default.render(element, document.getElementById('root')));
-});
-
-console.log(document.getElementsByClassName("slide"));
-
-var slideIndex = 1;
-
-// Next/previous controls
-function plusSlides(n) {
-  showSlides(slideIndex += n);
+      { className: "resumen" },
+      _react2.default.createElement('img', {
+        src: base_url + respuesta[i].poster_path,
+        alt: respuesta[i].original_title
+      }),
+      _react2.default.createElement(
+        'span',
+        null,
+        resumen
+      )
+    )
+  ));
 }
 
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("slide");
-  if (n > slides.length) {
-    slideIndex = 1;
+var k = i;
+
+var popl = Math.floor(respuesta.length / 5);
+var dif = popl * 5 - respuesta.length;
+
+i = 0;
+if (respuesta.length > 5) {
+  for (i = 0; i < popl; i++) {
+    for (var p = 0; p < 5; p++) {
+      popis.push(_react2.default.createElement(
+        'div',
+        null,
+        pop[p + i * 5]
+      ));
+    }
+    popis2.push(_react2.default.createElement(
+      'li',
+      { className: "slide", key: k, style: { display: "grid" } },
+      popis
+    ));
+    popis = [];
+    k = k + 1;
+  } //Esto guarda lo cargado en respuesta en li's cada 5 elementos
+  if (dif > 0) {
+    for (var _p = 0; _p < dif; _p++) {
+      popis.push(_react2.default.createElement(
+        'div',
+        null,
+        pop[_p + i * 5]
+      ));
+    }
+    popis2.push(_react2.default.createElement(
+      'li',
+      { className: "slide", key: k + 1, style: { display: "none" } },
+      popis[i]
+    )); //esto guarda si la cantidad de elementos en
+    //respuesta no es divisible por 5
   }
-  if (n < 1) {
-    slideIndex = slides.length;
-  }
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  slides[slideIndex - 1].style.display = "block";
 }
 
-showSlides(slideIndex);
+var currentSlide = 0;
 
-promesa.then(function () {
-  return console.log(document.getElementsByClassName("slide"));
-});
+var length = popis2.length - 1;
+console.log(length);
+
+var Element = function (_React$Component) {
+  _inherits(Element, _React$Component);
+
+  function Element(props) {
+    _classCallCheck(this, Element);
+
+    var _this = _possibleConstructorReturn(this, (Element.__proto__ || Object.getPrototypeOf(Element)).call(this, props));
+
+    _this.state = { slide: 0 };
+    return _this;
+  }
+
+  _createClass(Element, [{
+    key: 'plusSlides',
+    value: function plusSlides(q) {
+      currentSlide = currentSlide + q;
+      if (currentSlide > length) {
+        currentSlide = 0;
+      }
+      this.setState({
+        slide: currentSlide
+      });
+      console.log(currentSlide);
+      console.log(length);
+      if (currentSlide > length) {
+        currentSlide = 0;
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        popis2[this.state.slide],
+        _react2.default.createElement(
+          'button',
+          { onClick: function onClick(n) {
+              return _this2.plusSlides(-1);
+            } },
+          '\u276E'
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: function onClick(n) {
+              return _this2.plusSlides(1);
+            } },
+          '\u276F'
+        )
+      );
+    }
+  }]);
+
+  return Element;
+}(_react2.default.Component);
+
+_reactDom2.default.render(_react2.default.createElement(Element, null), document.getElementById('root'));
 
 /***/ }),
 /* 15 */
