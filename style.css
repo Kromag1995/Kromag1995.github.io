@@ -1,9 +1,11 @@
 body{
   background-color: black;
+  width: 2000px
 }
 
 img {
-  width: 200px;
+  width: 300px;
+  height: 500px;
   display: block;
 }
 h1 {
@@ -11,7 +13,7 @@ h1 {
 }
 
 .slide{
-  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-columns: 400px 400px 400px 400px 400px;
 }
 
 .movie{
@@ -20,6 +22,8 @@ h1 {
   width: inherit;
   margin-left: 30px;
   margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .movie h1{
@@ -32,6 +36,8 @@ h1 {
   grid-row-start: 2;
   grid-row-end: 3;
   width: inherit;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .resumen:hover span{
@@ -47,7 +53,7 @@ h1 {
     bottom: 210px;
     display: block;
     visibility: hidden;
-    width: 300px;
+    width: 150px;
     background-color: black;
     color: #fff;
     text-align: center;
@@ -56,13 +62,13 @@ h1 {
 }
 
 
-/* Slideshow container */
+
 .slideshow {
   position: relative;
   margin: auto;
 }
 
-/* Next & previous buttons */
+
 .prev, .next {
   cursor: pointer;
   position: absolute;
@@ -77,13 +83,13 @@ h1 {
   border-radius: 0 3px 3px 0;
 }
 
-/* Position the "next button" to the right */
+
 .next {
   right: 0;
   border-radius: 3px 0 0 3px;
 }
 
-/* On hover, add a black background color with a little bit see-through */
+
 .prev:hover, .next:hover {
   background-color: rgba(0,0,0,0.8);
 }

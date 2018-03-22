@@ -989,7 +989,6 @@ var i = 0;
 var base_url = 'https://image.tmdb.org/t/p/w500/';
 
 for (i = 0; i < respuesta.length; i++) {
-  var resumen = [respuesta[i].overview, respuesta[i].release_date];
   pop.push(_react2.default.createElement(
     'div',
     { className: "movie", key: i },
@@ -1008,7 +1007,11 @@ for (i = 0; i < respuesta.length; i++) {
       _react2.default.createElement(
         'span',
         null,
-        resumen
+        "Overview: " + respuesta[i].overview,
+        ' ',
+        _react2.default.createElement('br', null),
+        ' ',
+        "Realease Date " + respuesta[i].release_date
       )
     )
   ));
@@ -1078,6 +1081,9 @@ var Element = function (_React$Component) {
       if (currentSlide > length) {
         currentSlide = 0;
       }
+      if (currentSlide < 0) {
+        currentSlide = length;
+      }
       this.setState({
         slide: currentSlide
       });
@@ -1098,14 +1104,14 @@ var Element = function (_React$Component) {
         popis2[this.state.slide],
         _react2.default.createElement(
           'button',
-          { onClick: function onClick(n) {
+          { className: "prev", onClick: function onClick(n) {
               return _this2.plusSlides(-1);
             } },
           '\u276E'
         ),
         _react2.default.createElement(
           'button',
-          { onClick: function onClick(n) {
+          { className: "next", onClick: function onClick(n) {
               return _this2.plusSlides(1);
             } },
           '\u276F'
