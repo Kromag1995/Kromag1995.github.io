@@ -25,7 +25,7 @@ $.ajax(settings).done(function (response) {
       respuesta.push(response.results[i]);
   }
 });
-console.log(respuesta);
+
 
 let i = 0;
 
@@ -91,7 +91,6 @@ if (respuesta.length > 5) {
 let currentSlide= 0
 
 let length = popis2.length-1
-console.log(length)
 class Element extends React.Component{
   constructor(props){
     super(props);
@@ -108,8 +107,6 @@ class Element extends React.Component{
     this.setState({
       slide: currentSlide
     })
-    console.log(currentSlide)
-    console.log(length)
     if (currentSlide > length){
       currentSlide = 0
     }

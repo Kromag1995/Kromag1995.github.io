@@ -982,7 +982,6 @@ _jquery2.default.ajax(settings).done(function (response) {
     respuesta.push(response.results[i]);
   }
 });
-console.log(respuesta);
 
 var i = 0;
 
@@ -1060,7 +1059,6 @@ if (respuesta.length > 5) {
 var currentSlide = 0;
 
 var length = popis2.length - 1;
-console.log(length);
 
 var Element = function (_React$Component) {
   _inherits(Element, _React$Component);
@@ -1087,8 +1085,6 @@ var Element = function (_React$Component) {
       this.setState({
         slide: currentSlide
       });
-      console.log(currentSlide);
-      console.log(length);
       if (currentSlide > length) {
         currentSlide = 0;
       }
